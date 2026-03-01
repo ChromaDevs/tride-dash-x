@@ -1,7 +1,7 @@
 from sys import argv
 import re, struct
 
-if len(argv) < 2 or argv[1] in ["--help", "-h"] or argv[1] not in ["--txt", "-t"]:
+if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t"] and argv[0][0] == "-"):
     print(
         f"""
 ▀▀█▀▀ █▀▀█ ░▀░ █▀▀▄ █▀▀ 　 █▀▀▄ █▀▀█ █▀▀ █░░█ 　 █░█ 
@@ -59,7 +59,15 @@ output.write(b'\x21')
 output.write(bytes([len(bytes(creator, "utf-8"))]))
 output.write(bytes(creator, "utf-8"))
 
+no_blocks = len(blocks)
+prog = 0
+print(f"[{'='*20}]")
 for block in blocks:
+    prog += 1
+    percent = f"{str(int(
+        prog * 100 / no_blocks
+    ))}%".rjust(4)
+    print(f"\033[1A\033[30D\033[9C{percent}")
     # id
     output.write(
         bytes([
@@ -77,5 +85,6 @@ for block in blocks:
             block["rot"]
         ]).rjust(2, b'\x00')
     )
-
+print(f"\033[1A[{'='*20}]\033[30D\033[8C!DONE!")
+print(f"file saved to {output.name}")
 output.close()
