@@ -1,7 +1,24 @@
 from sys import argv
 import re, struct
 
-if argv[1] == "-d":
+if len(argv) < 2 or argv[1] in ["--help", "-h"] or argv[1] not in ["--txt", "-t"]:
+    print(
+        f"""
+▀▀█▀▀ █▀▀█ ░▀░ █▀▀▄ █▀▀ 　 █▀▀▄ █▀▀█ █▀▀ █░░█ 　 █░█ 
+░░█░░ █▄▄▀ ▀█▀ █░░█ █▀▀ 　 █░░█ █▄▄█ ▀▀█ █▀▀█ 　 ▄▀▄ 
+░░▀░░ ▀░▀▀ ▀▀▀ ▀▀▀░ ▀▀▀ 　 ▀▀▀░ ▀░░▀ ▀▀▀ ▀░░▀ 　 ▀░▀
+
+USAGE:
+    {argv[0]} [options] file
+
+OPTIONS
+    [no options]    converts tride's .txt to .tdx
+    -t, --txt       converts .tdx back to tride's .txt
+    -h, --help      show this message"""
+    )
+    exit(0)
+
+if argv[1] in ["--txt", "-t"]:
     exit(0)
 
 g = open(argv[1], "r")
