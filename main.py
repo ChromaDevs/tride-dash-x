@@ -14,8 +14,7 @@ USAGE:
 OPTIONS
     [no options]    converts tride's .txt to .tdx
     -t, --txt       converts .tdx back to tride's .txt (wip)
-    -h, --help      show this message"""
-    )
+    -h, --help      show this message""")
     exit(0)
 
 if argv[1] in ["--txt", "-t"]:
