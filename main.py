@@ -69,20 +69,14 @@ for block in blocks:
     print(f"\033[1A\033[30D\033[9C{percent}")
     # id
     output.write(
-        bytes([
-            block["id"]
-        ])
+        int(block["id"]).to_bytes(1)
     )
-
     #position
     output.write(struct.pack("<f", block["posx"]))
     output.write(struct.pack("<f", block["posy"]))
-
     #rotation
     output.write(
-        bytes([
-            block["rot"]
-        ]).rjust(2, b'\x00')
+        int(block["rot"]).to_bytes(2)
     )
 print(f"\033[1A[{'='*20}]\033[30D\033[8C!DONE!")
 print(f"file saved to {output.name}")
