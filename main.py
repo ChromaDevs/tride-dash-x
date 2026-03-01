@@ -13,7 +13,7 @@ USAGE:
 
 OPTIONS
     [no options]    converts tride's .txt to .tdx
-    -t, --txt       converts .tdx back to tride's .txt
+    -t, --txt       converts .tdx back to tride's .txt (wip)
     -h, --help      show this message"""
     )
     exit(0)
