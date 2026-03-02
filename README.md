@@ -32,7 +32,7 @@ Each block is structured as follows:
 
 ## Command-Line Tool
 
-The included script converts between Tride Dash .txt and .tdx file formats.
+The included python script converts between Tride Dash .txt and .tdx file formats.
 
 For usage details, run:
 ```bash
