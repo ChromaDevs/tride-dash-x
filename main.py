@@ -20,6 +20,7 @@ OPTIONS
     exit(0)
 
 if argv[1] in ["--txt", "-t"]:
+    print("NOT IMPLEMENTED. EXITING")
     exit(0)
 
 g = open(argv[1], "r")
@@ -46,7 +47,7 @@ for blok in src.splitlines():
 output = open(f"{argv[1][0:-4]}.tdx", "wb")
 
 output.truncate(0)
-output.write(b'\x69\x42') # magic bites
+output.write(b'\x69\x42')
 
 output.write(__version__.to_bytes())
 
@@ -71,14 +72,14 @@ for block in blocks:
         prog * 100 / no_blocks
     ))}%".rjust(4)
     print(f"\033[1A\033[30D\033[9C{percent}")
-    # id
+
     output.write(
         int(block["id"]).to_bytes(1)
     )
-    #position
+
     output.write(struct.pack("<f", block["posx"]))
     output.write(struct.pack("<f", block["posy"]))
-    #rotation
+
     output.write(
         int(block["rot"]).to_bytes(2)
     )
