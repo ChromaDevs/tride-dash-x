@@ -1,6 +1,8 @@
 from sys import argv
 import re, struct
 
+__version__ = 1
+
 if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t"] and argv[0][0] == "-"):
     print(
         f"""
@@ -44,7 +46,9 @@ for blok in src.splitlines():
 output = open(f"{argv[1][0:-4]}.tdx", "wb")
 
 output.truncate(0)
-output.write(b'\x06\x94\x20') # magic bites
+output.write(b'\x69\x42') # magic bites
+
+output.write(__version__.to_bytes())
 
 output.write(b'\x12')
 output.write(bytes([len(bytes(songname, "utf-8"))]))
