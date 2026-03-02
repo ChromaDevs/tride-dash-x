@@ -1,5 +1,6 @@
 from sys import argv
 import re, struct
+import zlib
 
 __version__ = 1
 
@@ -66,6 +67,9 @@ output.write(bytes(creator, "utf-8"))
 no_blocks = len(blocks)
 prog = 0
 print(f"[{'='*20}]")
+
+blocks_buffer = bytearray(b'')
+
 for block in blocks:
     prog += 1
     percent = f"{str(int(
@@ -73,16 +77,22 @@ for block in blocks:
     ))}%".rjust(4)
     print(f"\033[1A\033[30D\033[9C{percent}")
 
-    output.write(
+    blocks_buffer.append(
         int(block["id"]).to_bytes(1)
     )
 
-    output.write(struct.pack("<f", block["posx"]))
-    output.write(struct.pack("<f", block["posy"]))
+    blocks_buffer.append(struct.pack("<f", block["posx"]))
+    blocks_buffer.append(struct.pack("<f", block["posy"]))
 
-    output.write(
+    blocks_buffer.append(
         int(block["rot"]).to_bytes(2)
     )
+
+compressed_buffer = zlib.compress(blocks_buffer)
+
+output.write(compressed_buffer)
+bytes().__len__
+print(f"Block data compressed, file size reduced by {len(blocks_buffer) - len(compressed_buffer)} bytes")
 print(f"\033[1A[{'='*20}]\033[30D\033[8C!DONE!")
 print(f"file saved to {output.name}")
 output.close()
