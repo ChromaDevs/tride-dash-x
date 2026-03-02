@@ -3,6 +3,7 @@ import re, struct
 import zlib
 
 __version__ = 1
+verbose = False
 
 if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t"] and argv[0][0] == "-"):
     print(
@@ -12,17 +13,21 @@ if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t
 ░░▀░░ ▀░▀▀ ▀▀▀ ▀▀▀░ ▀▀▀ 　 ▀▀▀░ ▀░░▀ ▀▀▀ ▀░░▀ 　 ▀░▀
 
 USAGE:
-    {argv[0]} [options] file
+    {argv[0]} file [-tv]
 
 OPTIONS
     [no options]    converts tride's .txt to .tdx
     -t, --txt       converts .tdx back to tride's .txt (wip)
-    -h, --help      show this message""")
+    -h, --help      show this message
+    -v, --verbose   show extra output""")
     exit(0)
 
 if argv[1] in ["--txt", "-t"]:
     print("NOT IMPLEMENTED. EXITING")
     exit(0)
+
+if "-v" in argv or "--verbose" in argv:
+    verbose = True
 
 g = open(argv[1], "r")
 
@@ -77,14 +82,14 @@ for block in blocks:
     ))}%".rjust(4)
     print(f"\033[1A\033[30D\033[9C{percent}")
 
-    blocks_buffer.append(
+    blocks_buffer.extend(
         int(block["id"]).to_bytes(1)
     )
 
-    blocks_buffer.append(struct.pack("<f", block["posx"]))
-    blocks_buffer.append(struct.pack("<f", block["posy"]))
+    blocks_buffer.extend(struct.pack("<f", block["posx"]))
+    blocks_buffer.extend(struct.pack("<f", block["posy"]))
 
-    blocks_buffer.append(
+    blocks_buffer.extend(
         int(block["rot"]).to_bytes(2)
     )
 
@@ -92,7 +97,8 @@ compressed_buffer = zlib.compress(blocks_buffer)
 
 output.write(compressed_buffer)
 bytes().__len__
-print(f"Block data compressed, file size reduced by {len(blocks_buffer) - len(compressed_buffer)} bytes")
 print(f"\033[1A[{'='*20}]\033[30D\033[8C!DONE!")
-print(f"file saved to {output.name}")
+if verbose:
+    print(f"Block data compressed, file size reduced by {len(blocks_buffer) - len(compressed_buffer)} bytes")
+    print(f"file saved to {output.name}")
 output.close()
