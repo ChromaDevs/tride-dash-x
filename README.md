@@ -22,13 +22,13 @@ The .tdx format is a binary file format used for Tride Dash level data. All .tdx
 ## Level Block Data
 
 Each block is structured as follows:
-
 | Field | Size | Type |
 |-------|------|------|
 | ID | 1 byte | int |
 | Position X | 4 bytes | float |
 | Position Y | 4 bytes | float |
 | Rotation | 2 bytes | int |
+The entire blocck data chunk is encrypted with zlib
 
 ## Command-Line Tool
 
