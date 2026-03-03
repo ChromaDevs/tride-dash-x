@@ -5,7 +5,9 @@ import zlib
 __version__ = 1
 verbose = False
 
-if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t"] and argv[0][0] == "-"):
+if (len(argv) < 2 or 
+    "-h"in argv or "--help" in argv or 
+    (argv[1] not in ["--txt", "-t","-v","--verbose"] and argv[1][0] == "-" and "." not in argv[1])):
     print(
         f"""
 ▀▀█▀▀ █▀▀█ ░▀░ █▀▀▄ █▀▀ 　 █▀▀▄ █▀▀█ █▀▀ █░░█ 　 █░█ 
@@ -13,7 +15,7 @@ if len(argv) < 2 or argv[1] in ["--help", "-h"] or (argv[1] not in ["--txt", "-t
 ░░▀░░ ▀░▀▀ ▀▀▀ ▀▀▀░ ▀▀▀ 　 ▀▀▀░ ▀░░▀ ▀▀▀ ▀░░▀ 　 ▀░▀
 
 USAGE:
-    {argv[0]} file [-tv]
+    {argv[0]} [options] file
 
 OPTIONS
     [no options]    converts tride's .txt to .tdx
@@ -22,14 +24,14 @@ OPTIONS
     -v, --verbose   show extra output""")
     exit(0)
 
-if argv[1] in ["--txt", "-t"]:
+if "-t" in argv or "--txt" in argv:
     print("NOT IMPLEMENTED. EXITING")
     exit(0)
 
 if "-v" in argv or "--verbose" in argv:
     verbose = True
 
-g = open(argv[1], "r")
+g = open(argv[-1], "r")
 
 src = g.read()
 g.close()
@@ -50,7 +52,7 @@ for blok in src.splitlines():
         }
     )
 
-output = open(f"{argv[1][0:-4]}.tdx", "wb")
+output = open(f"{argv[-1][0:-4]}.tdx", "wb")
 
 output.truncate(0)
 output.write(b'\x69\x42')
