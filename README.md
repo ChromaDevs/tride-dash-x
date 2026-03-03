@@ -28,7 +28,8 @@ Each block is structured as follows:
 | Position X | 4 bytes | float |
 | Position Y | 4 bytes | float |
 | Rotation | 2 bytes | int |
-The entire blocck data chunk is encrypted with zlib
+
+> The entire blocck data chunk is encrypted with zlib
 
 ## Command-Line Tool
 
