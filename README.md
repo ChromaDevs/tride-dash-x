@@ -1,8 +1,14 @@
-# .tdx File Format Specification
+# what is tride dash x????
+
+tride dash x is a set of "useful" tools for tride dash.
+
+## tride dash file converter tool
+
+### .tdx File Format Specification
 
 The .tdx format is a binary file format used for Tride Dash level data. All .tdx files begin with the magic bytes `0x6942`, followed by a version number. The current version is 1.
 
-## Metadata Chunks
+### metadata chunks
 
 **Song Name**
 - Type identifier: `0x12` (1 byte)
@@ -19,7 +25,7 @@ The .tdx format is a binary file format used for Tride Dash level data. All .tdx
 - Length: 1 byte
 - Data: Variable-length creator name string
 
-## Level Block Data
+### Level Block Data
 
 Each block is structured as follows:
 | Field | Size | Type |
@@ -31,11 +37,11 @@ Each block is structured as follows:
 
 > The entire block data chunk is encrypted with zlib
 
-## Command-Line Tool
+### Command-Line Tool
 
 The included python script converts between Tride Dash .txt and .tdx file formats.
 
 For usage details, run:
 ```bash
-python main.py --help
+python conv.py --help
 ```
