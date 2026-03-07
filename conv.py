@@ -98,7 +98,7 @@ for block in blocks:
 compressed_buffer = zlib.compress(blocks_buffer)
 
 output.write(compressed_buffer)
-bytes().__len__
+
 print(f"\033[1A[{'='*20}]\033[30D\033[8C!DONE!")
 if verbose:
     print(f"Block data compressed, file size reduced by {len(blocks_buffer) - len(compressed_buffer)} bytes")

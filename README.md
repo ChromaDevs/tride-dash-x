@@ -45,3 +45,9 @@ For usage details, run:
 ```bash
 python conv.py --help
 ```
+
+## tride dash custom icons
+
+do not use this, it is a bugfest
+if you want to use it though, you'll need to run as admin
+idk myself
