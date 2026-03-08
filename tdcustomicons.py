@@ -70,8 +70,6 @@ class IconCard(QtWi.QWidget):
                     except Exception as e:
                         print(f"Error patching player icon: {e}")
                         continue
-                elif obj.peek_name() == "player inner":
-                    pass
 
 class MyWidget(QtWi.QWidget):
     def __init__(self):
@@ -182,8 +180,8 @@ class MyWidget(QtWi.QWidget):
                 with open(f"{data_file["tdfolder"]}\\Tride Dash_Data\\sharedassets1.bak", "wb") as m:
                     m.write(bakup)
                     m.close()
-
-                os.mkdir(f"{data_file["tdfolder"]}\\icons")
+                if not os.path.exists(f"{data_file["tdfolder"]}\\icons"):
+                    os.mkdir(f"{data_file["tdfolder"]}\\icons")
                 os.makedirs(data_folder)
                 with open(conf_file, "wt") as conf:
                     conf.write(
