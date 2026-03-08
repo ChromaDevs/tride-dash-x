@@ -175,7 +175,14 @@ class MyWidget(QtWi.QWidget):
                                          alignment=QtC.Qt.AlignmentFlag.AlignHCenter)
                 self.title.setFont(self.h1)
                 self.layout.addWidget(self.title)
-                subprocess.Popen(f"copy {data_file["tdfolder"]}\\Tride Dash_Data\\sharedassets1.assets {data_file["tdfolder"]}\\Tride Dash_Data\\sharedassets1.bak")
+                
+                b = open(f"{data_file["tdfolder"]}\\Tride Dash_Data\\sharedassets1.assets", "rb")
+                bakup = b.read()
+                b.close()
+                with open(f"{data_file["tdfolder"]}\\Tride Dash_Data\\sharedassets1.bak", "wb") as m:
+                    m.write(bakup)
+                    m.close()
+
                 os.mkdir(f"{data_file["tdfolder"]}\\icons")
                 os.makedirs(data_folder)
                 with open(conf_file, "wt") as conf:
